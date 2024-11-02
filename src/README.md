@@ -120,17 +120,3 @@ exports.autenticarUsuario = async (req, res) => {
     // Lógica para autenticar o usuário e gerar token JWT
 };
 ```
-
-### Conclusão
-
-Com essa estrutura e as melhores práticas sugeridas, você estará bem posicionado para desenvolver uma API escalável e robusta que atenda às suas necessidades financeiras e gerenciais. Essa abordagem modular facilita a manutenção e a expansão futura do seu projeto à medida que novas funcionalidades forem adicionadas.
-
-Citations:
-[1] https://static.granatum.com.br/financeiro/api/
-[2] https://github.com/FelipeDuarte21/sistema_controle_financeiro-back_end-API-spring
-[3] https://grafeno.digital/blog/api-financeira-como-integrar-e-aprimorar-seus-servicos/
-[4] https://www.youtube.com/watch?v=WgWAPL89dhQ
-[5] https://www.youtube.com/watch?v=d4cVGtyfcqI
-[6] https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/import
-[7] https://www.alura.com.br/artigos/guia-importacao-exportacao-modulos-javascript
-[8] https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Modules

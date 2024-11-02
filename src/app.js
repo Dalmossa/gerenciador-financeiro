@@ -50,6 +50,10 @@ process.on('SIGINT', () => {
     });
 });
 
+// A falta de tempo ainda não me permitiu documentar  o código, mas se você precisar de ajuda, basta perguntar. Estou  aqui para ajudar. 
+// Obrigado por ler até aqui. Boa sorte com o seu projeto.  -
+// 
+
 /*
 Explicação do Código
 
