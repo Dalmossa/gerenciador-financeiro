@@ -2,25 +2,25 @@
 
 const db = require('../config/db');
 
-async function addTarefa(descricao, usuario_id, categoria_id) {
+async function createTask(descricao, usuario_id, categoria_id) {
     const insertQuery = 'INSERT INTO tarefas (descricao, usuario_id, categoria_id) VALUES (?, ?, ?)';
     const result = await db.query(insertQuery, [descricao, usuario_id, categoria_id]);
     return result.insertId;
 }
 
-async function getTarefas() {
+async function getAllTasks() {
     const selectQuery = 'SELECT * FROM tarefas';
     const tarefas = await db.query(selectQuery);
     return tarefas;
 }
 
-async function getTarefaById(id) {
+async function getTaskById(id) {
     const selectQuery = 'SELECT * FROM tarefas WHERE id = ?';
-    const [tarefa] = await db.query(selectQuery, [id]);
+    const [tarefa] = await db.query(selectQuery, [id]);    
     return tarefa;
 }
 
-async function updateTarefa(id, descricao, status, prioridade) {
+async function updateTask(id, descricao, status, prioridade) {
     const updateQuery = 'UPDATE tarefas SET descricao = ?, status = ?, prioridade = ? WHERE id = ?';
     const result = await db.query(updateQuery, [descricao, status, prioridade, id]);
 
@@ -30,7 +30,7 @@ async function updateTarefa(id, descricao, status, prioridade) {
     return result;
 }
 
-async function deleteTarefa(id) {
+async function deleteTask(id) {
     const deleteQuery = 'DELETE FROM tarefas WHERE id = ?';
     const result = await db.query(deleteQuery, [id]);
 
@@ -41,9 +41,9 @@ async function deleteTarefa(id) {
 }
 
 module.exports = {
-    addTarefa,
-    getTarefas,
-    getTarefaById,
-    updateTarefa,
-    deleteTarefa
+    createTask,
+    getAllTasks,
+    getTaskById,
+    updateTask,
+    deleteTask
 };

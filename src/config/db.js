@@ -19,6 +19,7 @@ async function createPool() {
                 queueLimit: 0,
             });
             console.log('Pool de conexão criado com sucesso.');
+            console.gog('Data e hora de conexão:', Data.now())
         } catch (error) {
             console.error('Erro ao criar o pool de conexão:', error);
             throw error;

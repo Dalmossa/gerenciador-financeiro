@@ -3,8 +3,6 @@
 // Importa o módulo express, que é um framework web para Node.js.
 const express = require('express');
 const bodyParser = require('body-parser');
-// Importa o módulo de conexão com o banco de dados.
-const db = require('./config/db');
 
 // Cria uma instância do aplicativo Express.
 const app = express();
@@ -19,23 +17,12 @@ const PORT = process.env.PORT || 3000;
 // Importa os roteadores definidos em outros arquivos
 const usuarioRouter = require('./routes/usuarioRouter'); // Roteador de usuário
 const categoriaRouter = require('./routes/categoriaRouter'); // Roteador de categoria
-const tarefaRouter = require('./routes/tarefaRouter'); // Roteador de tarefa
+const taskRouter = require('./routes/taskRouter'); // Roteador de tarefa
 
 // Monta os roteadores nas rotas apropriadas
 app.use('/api/usuarios', usuarioRouter); // Prefixo para as rotas de usuário
 app.use('/api/categorias', categoriaRouter); // Prefixo para as rotas de categoria
-app.use('/api/tarefa', tarefaRouter); // Prefixo para as rotas de tarefa
-
-// Verificar conexões ativas
-
-/*
-============================================================================================================================================================
- * Importar módulo /models/Usuario
- */
-const { createTable } = require('./models/Usuario');
-
-// Criar a tabela de usuários ao iniciar a aplicação
-//createTable(); // Descomente esta linha se desejar criar a tabela ao iniciar
+app.use('/api/tarefa', taskRouter); // Prefixo para as rotas de tarefa
 
 // Inicia o servidor e faz com que ele comece a escutar requisições na porta definida anteriormente......
 const server = app.listen(PORT, () => {
