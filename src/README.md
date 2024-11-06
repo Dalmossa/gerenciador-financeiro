@@ -1,30 +1,6 @@
-[200~/projeto
-============================================================================================================================================================
-Para estruturar uma API robusta e escalável que inclua um gerenciador financeiro, um gerenciador de tarefas e um controle de usuários com autenticação, é importante seguir algumas diretrizes de arquitetura e organização de pastas. Abaixo está uma proposta de estrutura de pastas e responsabilidades, juntamente com as melhores práticas para cada componente.
 
-### Estrutura de Pastas
-
-
-/projeto
-│
-├── /src
-│   ├── /controllers          # Controladores para gerenciar a lógica das rotas
-│   ├── /middlewares          # Middlewares para autenticação e validação
-│   ├── /models               # Modelos de dados (ex: Mongoose, Sequelize)
-│   ├── /routes               # Definições das rotas da API
-│   ├── /services             # Lógica de negócios e interações com o banco de dados
-│   ├── /utils                # Funções utilitárias e helpers
-│   ├── /config               # Configurações da aplicação (ex: banco de dados, variáveis de ambiente)
-│   └── app.js                # Arquivo principal da aplicação
-│
-├── /tests                    # Testes automatizados
-│   ├── /unit                 # Testes unitários
-│   └── /integration          # Testes de integração
-│
-├── .env                      # Variáveis de ambiente
-├── package.json              # Dependências do projeto
-└── README.md                 # Documentação do projeto
-
+### Estou desenvolvendo uma API para um gerenciador financeiro e um gerenciador de tarefas.
+**Linguagem de programação utilizada é o:** `javaScript`
 
 ### Descrição das Pastas
 
@@ -75,7 +51,7 @@ Para estruturar uma API robusta e escalável que inclua um gerenciador financeir
 │
 ├── /controllers
 │   ├── usuarioController.js   # Controlador para gerenciar usuários
-│   ├── tarefaController.js     # Controlador para gerenciar tarefas
+│   ├── taskController.js     # Controlador para gerenciar tarefas
 │   └── categoriaController.js  # Controlador para gerenciar categorias financeiras
 │
 ├── /middlewares
@@ -84,39 +60,13 @@ Para estruturar uma API robusta e escalável que inclua um gerenciador financeir
 │
 ├── /models
 │   ├── Usuario.js             # Modelo de dados do usuário
-│   ├── Tarefa.js              # Modelo de dados da tarefa
+│   ├── Takt.js              # Modelo de dados da tarefa
 │   └── Categoria.js           # Modelo de dados da categoria financeira
 │
 ├── /routes
 │   ├── usuarioRoutes.js        # Rotas para gerenciamento de usuários
-│   ├── tarefaRoutes.js         # Rotas para gerenciamento de tarefas
+│   ├── taskRoutes.js         # Rotas para gerenciamento de tarefas
 │   └── categoriaRoutes.js      # Rotas para gerenciamento de categorias financeiras
 │
 └── app.js                     # Arquivo principal da aplicação onde tudo é configurado e iniciado.
 
-### Exemplo Básico
-
-Aqui está um exemplo básico de como você poderia estruturar um controlador para usuários:
-
-
-// src/controllers/usuarioController.js
-
-const Usuario = require('../models/Usuario'); // Modelo do usuário
-
-// Função para registrar um novo usuário
-exports.registrarUsuario = async (req, res) => {
-    try {
-        const novoUsuario = new Usuario(req.body);
-        await novoUsuario.save();
-        res.status(201).json({ message: 'Usuário criado com sucesso!' });
-    } catch (error) {
-        console.error('Erro ao registrar usuário:', error);
-        res.status(500).json({ message: 'Erro interno ao registrar usuário' });
-    }
-};
-
-// Função para autenticar o usuário
-exports.autenticarUsuario = async (req, res) => {
-    // Lógica para autenticar o usuário e gerar token JWT
-};
-```

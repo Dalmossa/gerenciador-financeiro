@@ -1,7 +1,7 @@
 // /controllesrs/taskController.js
 
 // Importar o modulo que irá interar com o banco de dados
-const ModuloTask = require('../models/task');
+const  ModuloTask  = require('../models/task');
 
 
 // Controlar a requisição que recebeu do /routes/tarefaRouter.js
@@ -51,14 +51,9 @@ async function getTaskById(req, res) {
         const task = await ModuloTask.getTaskById(id);
         if (!task) {
             return res.status(404).json({ Erro: 'Tarefa não encontrada' })
-        }
-        else{
-
-            if (task.length > 0) {
+        }        
                 console.log('Tarefa encontrada')
-                return res.status(200).json(task);
-            }
-        }
+                return res.status(200).json(task);     
             
         
     } catch (error) {

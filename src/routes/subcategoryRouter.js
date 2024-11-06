@@ -1,4 +1,4 @@
-// src/routes/usuarioRouter.js
+// src/routes/categoriaRouter.js/
 /**
  * Este módulo tem a responsabilidade de tratar as rotas
  * encaminhando as requisições para seus respequitivos metodos que,
@@ -8,31 +8,33 @@
 // importação dos framework
 const express = require('express');
 const router = express.Router();
-const usuarioController = require('../controllers/usuarioControllers'); // Importar as funções do controlador de Usuário.
+const { createSubcategory, 
+        getAllSubcategory, 
+        getSubcategoryById,
+        updateSubcategory, 
+        deleteSubcategory } = require('../controllers/subcategoryController'); // Importar as funções do controlador de Usuário.
 
 // Endpoint para adicionar um novo usuário
-router.post('/', usuarioController.createUser);
+router.post('/', createSubcategory);
 
 
 // Endpoint para buscar todos os usuários
 
-router.get('/', usuarioController.getAllUser);
+router.get('/',getAllSubcategory);
 
 
  
 // Endpoint para buscar um usuário pelo ID
-router.get('/:id',  usuarioController.getUserById);
+router.get('/:id', getSubcategoryById);
 
 
 // Endpoint para atualizar um usuário pelo ID
-router.put('/:id', usuarioController.updateUser);
+router.put('/:id', updateSubcategory);
 
 
 
 // Endpoint para excluir um usuário pelo ID
-router.delete('/:id', usuarioController.deleteUser);
-
-
+router.delete('/:id', deleteSubcategory);
 
 
 

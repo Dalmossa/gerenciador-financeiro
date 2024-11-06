@@ -3,7 +3,7 @@
 const db = require('../config/db'); // Importa a configuração da conexão com o banco de dados
 
 // Função para adicionar uma nova categoria
-async function addCategoria(nome) {
+async function createCategory(nome) {
     const connection = await db.getConnection();
     try {
         const insertQuery = 'INSERT INTO categorias (nome) VALUES (?)';
@@ -14,12 +14,13 @@ async function addCategoria(nome) {
         console.error('Erro ao adicionar categoria:', error);
         throw error; // Lança o erro para tratamento posterior
     } finally {
+        console.log('Conexão liberada');
         connection.release(); // Libera a conexão
     }
 }
 
 // Função para buscar todas as categorias
-async function getCategorias() {
+async function getAllCategory() {
     const connection = await db.getConnection();
     try {
         const selectQuery = 'SELECT * FROM categorias';
@@ -29,12 +30,13 @@ async function getCategorias() {
         console.error('Erro ao buscar categorias:', error);
         throw error; // Lança o erro para tratamento posterior
     } finally {
+        console.log('Conexão liberada');
         connection.release(); // Libera a conexão
     }
 }
 
 // Função para buscar uma categoria pelo ID
-async function getCategoriaById(id) {
+async function getCategoryById(id) {
     const connection = await db.getConnection();
     try {
         const selectQuery = 'SELECT * FROM categorias WHERE id = ?';
@@ -44,12 +46,13 @@ async function getCategoriaById(id) {
         console.error('Erro ao buscar categoria:', error);
         throw error; // Lança o erro para tratamento posterior
     } finally {
-        connection.release(); // Libera a conexão
+        connection.release();
+        console.log('Conexão liberada'); // Libera a conexão
     }
 }
 
 // Função para atualizar uma categoria pelo ID
-async function updateCategoria(id, nome) {
+async function updateCategory(id, nome) {
     const connection = await db.getConnection();
     try {
         const updateQuery = 'UPDATE categorias SET nome = ? WHERE id = ?';
@@ -64,12 +67,13 @@ async function updateCategoria(id, nome) {
         console.error('Erro ao atualizar categoria:', error);
         throw error; // Lança o erro para tratamento posterior
     } finally {
+        console.log('Conexão liberada');
         connection.release(); // Libera a conexão
     }
 }
 
 // Função para excluir uma categoria pelo ID
-async function deleteCategoria(id) {
+async function deleteCategory(id) {
     const connection = await db.getConnection();
     try {
         const deleteQuery = 'DELETE FROM categorias WHERE id = ?';
@@ -84,15 +88,34 @@ async function deleteCategoria(id) {
         console.error('Erro ao excluir categoria:', error);
         throw error; // Lança o erro para tratamento posterior
     } finally {
+        console.log('Conexão liberada');
         connection.release(); // Libera a conexão
     }
-}
+};
+
+async function deleteAllCategory () {
+    const connection = await db.getConnection();
+    try {
+        const deleteQuery = 'DELETE FROM category';
+        await connection.query(deleteQuery);
+
+    } catch (error) {
+        console.error('Erro ao deletar todas as tarefas');
+        throw new Error(' Erro ao deletar todas as tarefas');
+
+    }
+    finally {
+        connection.release();
+        console.log('Conexão liberada')
+    }
+};
 
 // Exporta as funções do modelo
 module.exports = { 
-    addCategoria,
-    getCategorias,
-    getCategoriaById,
-    updateCategoria,
-    deleteCategoria 
+    createCategory,
+    getAllCategory,
+    getCategoryById,
+    updateCategory,
+    deleteCategory,
+    deleteAllCategory
 };

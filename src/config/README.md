@@ -111,6 +111,8 @@ Para criar um gerenciador financeiro e de tarefas com autenticação em uma API,
 - **Segurança**: Sempre armazene senhas usando hashing (por exemplo, com bcrypt) e nunca as exponha diretamente.
 
 ### Conclusão
+### conectar ao mysql local:
+mysql -u root -p --socket=/var/run/mysqld/mysqld.sock
 
 Com essa estrutura e os módulos sugeridos, você terá uma base sólida para desenvolver sua API. Essa abordagem modular não apenas facilita a escalabilidade do seu projeto, mas também melhora a legibilidade e manutenção do código ao longo do tempo.
 

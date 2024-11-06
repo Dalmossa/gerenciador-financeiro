@@ -16,13 +16,15 @@ const PORT = process.env.PORT || 3000;
 
 // Importa os roteadores definidos em outros arquivos
 const usuarioRouter = require('./routes/usuarioRouter'); // Roteador de usuário
-const categoriaRouter = require('./routes/categoriaRouter'); // Roteador de categoria
+const categoriaRouter = require('./routes/categoryRouter'); // Roteador de categoria
 const taskRouter = require('./routes/taskRouter'); // Roteador de tarefa
+const subcategoriasRouter = require('./routes/subcategoryRouter');
 
 // Monta os roteadores nas rotas apropriadas
 app.use('/api/usuarios', usuarioRouter); // Prefixo para as rotas de usuário
 app.use('/api/categorias', categoriaRouter); // Prefixo para as rotas de categoria
 app.use('/api/tarefa', taskRouter); // Prefixo para as rotas de tarefa
+app.use('/api/subcategorias', subcategoriasRouter); // Prefixo para as rotas de subCategorias
 
 // Inicia o servidor e faz com que ele comece a escutar requisições na porta definida anteriormente......
 const server = app.listen(PORT, () => {
@@ -37,6 +39,7 @@ process.on('SIGINT', () => {
     });
 });
 
+module.exports = app;
 // A falta de tempo ainda não me permitiu documentar  o código, mas se você precisar de ajuda, basta perguntar. Estou  aqui para ajudar. 
 // Obrigado por ler até aqui. Boa sorte com o seu projeto.  -
 // 
