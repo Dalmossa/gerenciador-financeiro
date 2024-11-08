@@ -8,7 +8,7 @@ async function createCategory(nome) {
     try {
         const insertQuery = 'INSERT INTO categorias (nome) VALUES (?)';
         const [result] = await connection.query(insertQuery, [nome]);
-        console.log(result);
+        console.log('Categoria criada com sucesso', result);
         return result.insertId; // Retorna o ID da nova categoria
     } catch (error) {
         console.error('Erro ao adicionar categoria:', error);
@@ -60,7 +60,7 @@ async function updateCategory(id, nome) {
         
         if (result.affectedRows === 0) {
             throw new Error('Categoria não encontrada'); // Lança erro se nenhum registro foi afetado
-        }
+        }  console.log('Categoria atualizada com sucesso', result)
         
         return result; // Retorna o resultado da atualização
     } catch (error) {

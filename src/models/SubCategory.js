@@ -1,28 +1,37 @@
 // src/models/SubCategoria.js
 
 const db = require('../config/db'); // Importa a configuração da conexão com o banco de dados
-
 // Função para adicionar uma nova subcategoria
-async function createSubcategory(nome, categoriaId) {
+async function createSubcategory(nome, categoriaId, id) {
+    console.log('Dados recebidos no models:', { nome, categoriaId, id }); // Log dos dados recebidos
+
+    // Verifica se os parâmetros obrigatórios estão presentes
     if (!nome || !categoriaId) {
-        throw new Error('Nome e categoriaId são obrigatórios');
+        console.error('Erro: Nome e Id da categoria são obrigatórios no servidor');
+        throw new Error('Nome e Id da categoria são obrigatórios no servidor');
     }    
     
-    const connection = await db.getConnection();
+    let connection;
     try {
-        const insertQuery = 'INSERT INTO subcategorias (nome, categoriaId) VALUES (?,?)';
-        const [result] = await connection.query(insertQuery, [nome, categoriaId] );
-        console.log(result);
+        connection = await db.getConnection(); // Tenta obter uma conexão
+        console.log('Conexão ao banco de dados estabelecida.');
+
+        const insertQuery = 'INSERT INTO subcategorias (nome, categoriaid) VALUES (?, ?)';
+        const [result] = await connection.query(insertQuery, [nome, categoriaId]);
+        console.log('Resultado da inserção:', result); // Log do resultado da inserção
+
         return result.insertId; // Retorna o ID da nova subcategoria
     } catch (error) {
-        console.error('Erro ao adicionar subcategoria:', error);
+        console.error('Erro ao adicionar subcategoria no servidor:', error);
         throw error; // Lança o erro para tratamento posterior
     } finally {
-        console.log('Conexão liberada');
-        connection.release(); // Libera a conexão
+        if (connection) {
+            console.log('Conexão liberada');
+            connection.release(); // Libera a conexão
+        }
     }
-
 }
+
 
 // Função para buscar todas as subcategorias
 async function getAllSubcategory() {
@@ -57,25 +66,38 @@ async function getSubcategoryById(id) {
 }
 
 // Função para atualizar uma subcategoria pelo ID
-async function updateSubcategory(id, nome) {
+async function updateSubcategory(id, nome, categoriaid) {
+    if (!nome || !categoriaid || isNaN(categoriaid)) {
+        throw new Error("Nome e categoriaId são obrigatórios e categoriaId deve ser um número.");
+    }
+
     const connection = await db.getConnection();
     try {
-        const updateQuery = 'UPDATE subcategorias SET nome = ? WHERE id = ?';
-        const [result] = await connection.query(updateQuery, [nome, id]);
-        
-        if (result.affectedRows === 0) {
-            throw new Error('Subcategoria não encontrada'); // Lança erro se nenhum registro foi afetado
+        // Consultando a subcategoria para verificar se ela existe
+        const selectQuery = 'SELECT * FROM subcategorias WHERE id = ?';
+        const [subcategoria] = await connection.query(selectQuery, [id]);
+
+        if (!subcategoria || subcategoria.length === 0) {
+            throw new Error('Subcategoria não encontrada');
         }
-        
+
+        // Atualizando a subcategoria
+        const updateQuery = 'UPDATE subcategorias SET nome = ?, categoriaid = ? WHERE id = ?';
+        const [result] = await connection.query(updateQuery, [nome, categoriaid, id]);
+
+        if (result.affectedRows === 0) {
+            throw new Error('Erro ao atualizar a subcategoria');
+        }
+
         return result; // Retorna o resultado da atualização
     } catch (error) {
         console.error('Erro ao atualizar subcategoria:', error);
         throw error; // Lança o erro para tratamento posterior
     } finally {
-        console.log('Conexão liberada');
         connection.release(); // Libera a conexão
     }
 }
+
 
 // Função para excluir uma subcategoria pelo ID
 async function deleteSubcategory(id) {
@@ -109,3 +131,5 @@ module.exports = {
     deleteSubcategory,
    
 };
+
+
